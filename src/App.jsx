@@ -36,16 +36,6 @@ export default function App() {
             </div>
             <ContactForm />
           </section>
-
-          <section className="tips">
-            <h3>Tips</h3>
-            <ul>
-              <li>Character counts appear when you are within 10 characters of the limit.</li>
-              <li>Paste a long string at the limit to spawn many letters at once.</li>
-              <li>About one in six letters takes a skittish sideways bounce.</li>
-              <li>Respects <code>prefers-reduced-motion</code> — no animation, still enforces limits.</li>
-            </ul>
-          </section>
         </main>
 
         <footer className="footer">
