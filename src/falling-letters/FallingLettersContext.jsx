@@ -9,6 +9,7 @@ import {
 } from 'react';
 import {getOverflowSpawnPoint} from './getOverflowSpawnPoint';
 import {getDocumentScrollHeight, toDocumentPoint} from './documentMetrics';
+import {playOverflowSound} from './overflowSound';
 import FallingLettersLayer from './FallingLettersLayer';
 
 const FallingLettersContext = createContext(null);
@@ -55,7 +56,11 @@ export function FallingLettersProvider({children}) {
   }, [refreshLayerHeight]);
 
   const spawnLetters = useCallback(
-    (overflowText, inputEl, caretIndex) => {
+    (overflowText, inputEl, caretIndex, playSound = false) => {
+      if (playSound) {
+        playOverflowSound();
+      }
+
       if (reducedMotionRef.current || !overflowText || !inputEl) return;
 
       refreshLayerHeight();

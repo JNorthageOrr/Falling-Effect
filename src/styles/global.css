@@ -45,13 +45,17 @@ body {
   margin-bottom: 40px;
 }
 
-.hero__eyebrow {
-  margin: 0 0 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+.hero__brand {
+  display: inline-block;
+  margin: 0 0 24px;
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2rem, 5.5vw, 2.75rem);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #7b2d8e;
+  transform: skewX(-10deg);
 }
 
 .hero__title {
@@ -248,17 +252,15 @@ body {
   margin-top: 64px;
   padding-top: 32px;
   border-top: 1px solid var(--color-border);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
 }
 
-.footer p {
+.footer__disclaimer {
   margin: 0;
-  font-size: 0.875rem;
+  max-width: 60ch;
+  font-size: 0.8125rem;
+  line-height: 1.6;
   color: var(--color-muted);
+  font-style: italic;
 }
 
 /* Falling letters overlay (portaled to document.body) */

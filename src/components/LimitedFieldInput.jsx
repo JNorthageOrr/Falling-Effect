@@ -1,6 +1,7 @@
 import {forwardRef, useCallback, useRef} from 'react';
 import {useFallingLetters} from '../falling-letters/FallingLettersContext';
 import {preserveScrollPosition} from '../falling-letters/documentMetrics';
+import {shouldPlayOverflowSound} from '../falling-letters/overflowSound';
 
 const LimitedFieldInput = forwardRef(function LimitedFieldInput(
   {as: Component = 'input', maxLength, onChange, value, className, ...props},
@@ -41,9 +42,15 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
       const replacing = selectionEnd - selectionStart;
       const room = maxLength - (currentValue.length - replacing);
 
+      const playSound = shouldPlayOverflowSound(
+        input,
+        currentValue.length,
+        maxLength,
+      );
+
       preserveScrollPosition(() => {
         if (room <= 0) {
-          fallingLetters.spawnLetters(incoming, input, selectionStart);
+          fallingLetters.spawnLetters(incoming, input, selectionStart, playSound);
           return;
         }
 
@@ -58,6 +65,7 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
           overflow,
           input,
           selectionStart + accepted.length,
+          playSound,
         );
         emitChange(input, nextValue, nativeEvent);
       });
@@ -101,7 +109,12 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
       const accepted = nextValue.slice(0, maxLength);
 
       preserveScrollPosition(() => {
-        fallingLetters.spawnLetters(overflow, input, maxLength);
+        const playSound = shouldPlayOverflowSound(
+          input,
+          value?.length ?? input.value.length,
+          maxLength,
+        );
+        fallingLetters.spawnLetters(overflow, input, maxLength, playSound);
         emitChange(input, accepted, event);
       });
     },

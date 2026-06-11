@@ -16,7 +16,7 @@ export default function App() {
     <FallingLettersProvider>
       <div className="page">
         <header className="hero">
-          <p className="hero__eyebrow"></p>
+          <p className="hero__brand">NJ E-ZPass</p>
           <h1 className="hero__title">We'd love to hear from you</h1>
           <p className="hero__subtitle">
             How are we doing? What can we improve on?
@@ -36,7 +36,10 @@ export default function App() {
         </main>
 
         <footer className="footer">
-          {/*<ClearPileButton />*/}
+          <p className="footer__disclaimer">
+            This site is satire and is not affiliated in any way with New Jersey
+            E-ZPass — <br />I would never work with that that villainous gang of highway robbers.
+          </p>
         </footer>
       </div>
     </FallingLettersProvider>
