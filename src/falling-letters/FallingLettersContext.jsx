@@ -55,15 +55,12 @@ export function FallingLettersProvider({children}) {
   }, [refreshLayerHeight]);
 
   const spawnLetters = useCallback(
-    (overflowText, inputEl) => {
+    (overflowText, inputEl, caretIndex) => {
       if (reducedMotionRef.current || !overflowText || !inputEl) return;
 
       refreshLayerHeight();
 
-      const spawnStyle = getOverflowSpawnPoint(
-        inputEl,
-        Math.max(0, inputEl.value.length - overflowText.length),
-      );
+      const spawnStyle = getOverflowSpawnPoint(inputEl, caretIndex);
       const docPoint = toDocumentPoint(spawnStyle.x, spawnStyle.y);
       const now = performance.now();
       const chars = [...overflowText];

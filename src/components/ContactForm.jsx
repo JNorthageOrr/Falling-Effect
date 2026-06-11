@@ -3,11 +3,11 @@ import LimitedFieldInput from './LimitedFieldInput';
 import FieldCharacterCount from './FieldCharacterCount';
 
 const FIELD_LIMITS = {
-  firstName: 30,
-  lastName: 30,
-  email: 60,
-  phone: 20,
-  message: 500,
+  firstName: 15,
+  lastName: 15,
+  email: 20,
+  phone: 15,
+  message: 15,
 };
 
 const INITIAL_FORM = {
@@ -137,7 +137,7 @@ export default function ContactForm() {
           as="textarea"
           id="message"
           name="message"
-          rows={5}
+          rows={2}
           required
           value={form.message}
           maxLength={FIELD_LIMITS.message}

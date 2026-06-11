@@ -43,7 +43,7 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
 
       preserveScrollPosition(() => {
         if (room <= 0) {
-          fallingLetters.spawnLetters(incoming, input);
+          fallingLetters.spawnLetters(incoming, input, selectionStart);
           return;
         }
 
@@ -54,7 +54,11 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
           accepted +
           currentValue.slice(selectionEnd);
 
-        fallingLetters.spawnLetters(overflow, input);
+        fallingLetters.spawnLetters(
+          overflow,
+          input,
+          selectionStart + accepted.length,
+        );
         emitChange(input, nextValue, nativeEvent);
       });
     },
@@ -97,7 +101,7 @@ const LimitedFieldInput = forwardRef(function LimitedFieldInput(
       const accepted = nextValue.slice(0, maxLength);
 
       preserveScrollPosition(() => {
-        fallingLetters.spawnLetters(overflow, input);
+        fallingLetters.spawnLetters(overflow, input, maxLength);
         emitChange(input, accepted, event);
       });
     },

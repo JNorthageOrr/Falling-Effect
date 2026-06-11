@@ -16,12 +16,10 @@ export default function App() {
     <FallingLettersProvider>
       <div className="page">
         <header className="hero">
-          <p className="hero__eyebrow">Overflow input effect</p>
-          <h1 className="hero__title">Falling Letters</h1>
+          <p className="hero__eyebrow"></p>
+          <h1 className="hero__title">We'd love to hear from you</h1>
           <p className="hero__subtitle">
-            Fill any field to its character limit, then keep typing. Extra letters
-            teeter on the edge, fall with gravity, bounce, and pile up at the
-            bottom of the page.
+            How are we doing? What can we improve on?
           </p>
         </header>
 
@@ -30,8 +28,7 @@ export default function App() {
             <div className="card__header">
               <h2>Contact Us</h2>
               <p>
-                Try the effect on any field below. Scroll to the footer and keep
-                typing — letters still fall to the bottom of the page.
+                
               </p>
             </div>
             <ContactForm />
@@ -39,8 +36,7 @@ export default function App() {
         </main>
 
         <footer className="footer">
-          <p>Falling Letters demo — extracted from checkout form experiments.</p>
-          <ClearPileButton />
+          {/*<ClearPileButton />*/}
         </footer>
       </div>
     </FallingLettersProvider>
