@@ -1,4 +1,4 @@
-const OVERFLOW_SPAWN_OFFSET_X = 7;
+const OVERFLOW_SPAWN_OFFSET_X = 5;
 const OVERFLOW_SPAWN_OFFSET_Y = -1;
 
 function getContentMetrics(input, style, rect) {
@@ -21,9 +21,7 @@ function createMirror(input, style, contentWidth, isTextarea) {
     'left:-9999px',
     'top:0',
     'visibility:hidden',
-    'overflow:hidden',
     'pointer-events:none',
-    `width:${contentWidth}px`,
     `font:${style.font}`,
     `line-height:${style.lineHeight}`,
     `letter-spacing:${style.letterSpacing}`,
@@ -34,40 +32,26 @@ function createMirror(input, style, contentWidth, isTextarea) {
 
   if (isTextarea) {
     mirrorStyles.push(
+      'overflow:hidden',
+      `width:${contentWidth}px`,
       'white-space:pre-wrap',
       'word-wrap:break-word',
       'overflow-wrap:break-word',
     );
   } else {
-    mirrorStyles.push('white-space:pre');
+    mirrorStyles.push(
+      'white-space:pre',
+      'width:max-content',
+      'max-width:none',
+    );
   }
 
   mirror.style.cssText = mirrorStyles.join(';');
   return mirror;
 }
 
-function measureSingleLineCaret(input, style, rect, caretIndex, metrics) {
-  const mirror = createMirror(input, style, metrics.contentWidth, false);
-  mirror.textContent = input.value.slice(0, caretIndex);
-
-  document.body.appendChild(mirror);
-  const textWidth = mirror.offsetWidth;
-  document.body.removeChild(mirror);
-
-  const x =
-    rect.left +
-    metrics.borderLeft +
-    metrics.paddingLeft +
-    textWidth -
-    input.scrollLeft +
-    OVERFLOW_SPAWN_OFFSET_X;
-  const y = rect.top + rect.height * 0.55 + OVERFLOW_SPAWN_OFFSET_Y;
-
-  return {x, y};
-}
-
-function measureTextareaCaret(input, style, rect, caretIndex, metrics) {
-  const mirror = createMirror(input, style, metrics.contentWidth, true);
+function measureCaret(input, style, rect, caretIndex, metrics, isTextarea) {
+  const mirror = createMirror(input, style, metrics.contentWidth, isTextarea);
   mirror.appendChild(document.createTextNode(input.value.slice(0, caretIndex)));
 
   const marker = document.createElement('span');
@@ -108,9 +92,7 @@ export function getOverflowSpawnPoint(input, caretIndex) {
   const index = Math.max(0, Math.min(caretIndex ?? input.value.length, input.value.length));
   const isTextarea = input.tagName === 'TEXTAREA';
 
-  const {x, y} = isTextarea
-    ? measureTextareaCaret(input, style, rect, index, metrics)
-    : measureSingleLineCaret(input, style, rect, index, metrics);
+  const {x, y} = measureCaret(input, style, rect, index, metrics, isTextarea);
 
   return {
     x,
